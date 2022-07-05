@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="es">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Iniciar sesión</title>
+        <link rel="stylesheet" type="text/css" href="/stylesheets/icons/adminLTE-2.4.15/font-awesome.min.css">
+        <link href="/stylesheets/login.css" rel="stylesheet">
+    </head>
+    <body>
+      <div class="titulo">
+        <h1>Warlus Technic</h1>
+      </div>
+      <div id="login-button">
+        <img style="z-index: 2;" src="images/login-w-icon.png">
+      </div>
+      <div id="container">
+        <h1>Inicio de sesi&oacute;n</h1>
+        <span class="close-btn">
+          <img src="images/circle_close_delete_-128.webp"></img>
+        </span>
+      
+        <form class="form_login" action="/login" method="POST">
+          <input type="text" name="user" placeholder="Usuario">
+          <input type="password" name="password" placeholder="Contrase&ntilde;a">
+          <button type="submit">Iniciar sesi&oacute;n</button>
+          <div id="remember-container">
+            <input type="checkbox" id="checkbox-2-1" class="checkbox" checked="checked"/>
+            <span id="remember">Recordarme</span>
+            <span id="forgotten">Olvid&oacute; la contrase&ntilde;a?</span>
+          </div>
+        </form>
+      </div>
+      
+      <!-- Forgotten Password Container -->
+      <div id="forgotten-container">
+        <h1>Recuperar contrase&ntilde;a</h1>
+        <span class="close-btn">
+          <img src="images/circle_close_delete_-128.webp"></img>
+        </span>
+
+        <form>
+          <input type="email" name="email" placeholder="E-mail">
+          <a href="#" class="orange-btn">Recuperar</a>
+        </form>
+      </div>
+      <script type="text/javascript" src="/javascripts/jquery.min.js"></script>
+      <script type="text/javascript" src="/javascripts/login.js"></script>
+
+      <script src="/javascripts/sweetalert2@11.js"></script>
+      
+      <% if(alert) { %>
+        <script>
+        Swal.fire({
+            title: '<%= alertTitle %>',
+            text:'<%= alertMessage %>',
+            icon:'<%= alertIcon %>',
+            showConfirmButton: <%= showConfirmButton %>,
+            timer: <%= timer %>,
+            customClass: {popup: 'form-swal'}
+        }).then(()=>{
+            window.location = '/<%= ruta %>'
+        })
+        </script>
+      <% } %>
+
+      <style>
+        .form-swal {
+          opacity: .5;
+          color: rgb(0, 0, 0);
+        }
+      </style>
+
+    </body>
+</html>
