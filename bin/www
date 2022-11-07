@@ -1,0 +1,105 @@
+#!/usr/bin/env node
+
+/**
+ * Module dependencies.
+ */
+
+const app = require('../app');
+const debug = require('debug')('seminario3:server');
+const http = require('http');
+const mongoose = require('mongoose');
+//const db = 'mongodb://'+ process.env.DB_HOST +':'+ process.env.DB_PORT +'/'+ process.env.DB_DATABASE;
+const db = 'mongodb+srv://'+ process.env.DB_USERNAME_ATLAS +':'+ process.env.DB_PASSWORD_ATLAS +'@cluster0.bj1xd.mongodb.net/'+ process.env.DB_DATABASE_ATLAS +'?retryWrites=true&w=majority';
+
+//const wakeUpDyno = require("../evitarAppIsAsleep/wokeDyno"); // my module!
+//const DYNO_URL = "https://warlustech.herokuapp.com"; // the url of your dyno
+
+/**
+ * Get port from environment and store in Express.
+ */
+
+const port = normalizePort(process.env.PORT || '3000');
+app.set('port', port);
+
+/**
+ * Create HTTP server.
+ */
+
+const server = http.createServer(app);
+
+/**
+ * Listen on provided port, on all network interfaces.
+ */
+mongoose.connect(db, (err, res) => {
+  if (err) {
+    return console.log(`Error al conectar a la base de datos: ${err}`);
+  }
+  console.log('Conexión a la base de datos establecida...');
+
+  server.listen(port, () =>{
+    console.log('Servidor inciado, puerto ' + `${port}`);
+  });
+  server.on('error', onError);
+  server.on('listening', onListening);
+});
+
+/**
+ * Normalize a port into a number, string, or false.
+ */
+
+function normalizePort(val) {
+  const port = parseInt(val, 10);
+
+  if (isNaN(port)) {
+    // named pipe
+    return val;
+  }
+
+  if (port >= 0) {
+    // port number
+    return port;
+  }
+
+  return false;
+}
+
+/**
+ * Event listener for HTTP server "error" event.
+ */
+
+function onError(error) {
+  if (error.syscall !== 'listen') {
+    throw error;
+  }
+
+  const bind = typeof port === 'string'
+    ? 'Pipe ' + port
+    : 'Port ' + port;
+
+  // handle specific listen errors with friendly messages
+  switch (error.code) {
+    case 'EACCES':
+      console.error(bind + ' requires elevated privileges');
+      process.exit(1);
+      break;
+    case 'EADDRINUSE':
+      console.error(bind + ' is already in use');
+      process.exit(1);
+      break;
+    default:
+      throw error;
+  }
+}
+
+/**
+ * Event listener for HTTP server "listening" event.
+ */
+
+function onListening() {
+  const addr = server.address();
+  const bind = typeof addr === 'string'
+    ? 'pipe ' + addr
+    : 'port ' + addr.port;
+  debug('Listening on ' + bind);
+  //wakeUpDyno(DYNO_URL); // will start once server starts
+}

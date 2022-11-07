@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Administrativo</title>
+    <link href="/stylesheets/bootstrap.min.css" rel="stylesheet">
+    <link href="/stylesheets/dashboard.css" rel="stylesheet">
+    <script src="/javascripts/bootstrap.bundle.min.js"></script>
+</head>
+<body>
+    <div class="contenedor-padre">
+        <div class="contenedor-hijo">
+            <a href="/logout" type="button" class="btn btn-outline-danger float-right rounded-pill">
+                <span class="spinner-border spinner-border-sm visually-hidden" role="status" aria-hidden="true"></span>
+                Cerrar sesión
+            </a>
+        </div>
+        <div class="contenedor-hijo">
+            <a href="/administrativo/reclamo" type="button" class="btn btn-outline-danger float-right rounded-pill">
+                <span class="spinner-border spinner-border-sm visually-hidden" role="status" aria-hidden="true"></span>
+                Reclamos
+            </a>
+        </div>
+        <div class="contenedor-hijo">
+            <a href="/administrativo/tecnico" type="button" class="btn btn-outline-danger float-right rounded-pill">
+                <span class="spinner-border spinner-border-sm visually-hidden" role="status" aria-hidden="true"></span>
+                Tecnicos
+            </a>
+        </div>
+        <div class="contenedor-hijo">
+            <a href="/administrativo/producto" type="button" class="btn btn-outline-danger float-right rounded-pill">
+                <span class="spinner-border spinner-border-sm visually-hidden" role="status" aria-hidden="true"></span>
+                Productos
+            </a>
+        </div>
+        <div class="contenedor-hijo">
+            <a href="/administrativo/usuario" type="button" class="btn btn-outline-danger float-right rounded-pill">
+                <span class="spinner-border spinner-border-sm visually-hidden" role="status" aria-hidden="true"></span>
+                Usuarios
+            </a>
+        </div>
+        <div class="contenedor-hijo">
+            <a href="/administrativo/repuesto" type="button" class="btn btn-outline-danger float-right rounded-pill">
+                <span class="spinner-border spinner-border-sm visually-hidden" role="status" aria-hidden="true"></span>
+                Repuestos
+            </a>
+        </div>
+        <div class="contenedor-hijo">
+            <a href="/administrativo/planilla" type="button" class="btn btn-outline-danger float-right rounded-pill">
+                <span class="spinner-border spinner-border-sm visually-hidden" role="status" aria-hidden="true"></span>
+                Planillas
+            </a>
+        </div>
+    </div>
+
+    <style>
+        .contenedor-padre {
+            background-color: rgb(180, 17, 17);
+            width: 100%;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .contenedor-hijo {
+            float: left;
+            border: 1px dashed rgb(0, 0, 0);
+            padding: 0px;
+            padding-bottom: 5px;
+            margin-left: 30px;
+            width: 260px;
+            height: 260px;
+            text-align: center;
+            font-size: 16px;
+        }
+    </style>
+</body>
+</html>

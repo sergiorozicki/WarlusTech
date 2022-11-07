@@ -1,0 +1,191 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Warlus Technic</title>
+    
+    <link href="/stylesheets/bootstrap.min.css" rel="stylesheet">
+    <link href="/stylesheets/headers.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="/stylesheets/icons/adminLTE-2.4.15/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="/stylesheets/icons/bootstrap-5.1/bootstrap-icons.css">
+  </head>
+  <body>
+
+    <header class="p-2 bg-dark opacity-75 text-white">
+      <div class="container">
+        <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+          <div class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none">
+            <img class="rounded-circle" src="/images/logo.jpeg" width="60px" height="60px">
+          </div>
+          <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
+            <li><a href="/" class="nav-link px-2 text-secondary"><i class="fa fa-home"></i> Inicio</a></li>
+            <li><a href="/reclamo" class="nav-link px-2 text-white"><i class="fa fa-exclamation-triangle"></i> Reclamos</a></li>
+          </ul>
+          <div class="text-end">
+            <a href="/login" type="button" class="btn btn-outline-light me-2">Iniciar sesi&oacute;n</a>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <div class="container mt-3">
+      <div class="d-flex flex-wrap align-items-center justify-content-center">
+        <div>
+          <ul class="nav nav-tabs">
+            <li class="nav-item">
+              <button class="nav-link text-white bg-secondary opacity-75 active" id="btn_consultar1">Consultar reclamo</button>
+            </li>
+            <li class="nav-item">
+              <button class="nav-link text-white opacity-75" id="btn_solicitar1">Iniciar reclamo</button>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="container mt-5">
+      <div class="d-flex flex-wrap align-items-center justify-content-center">
+
+        <div id="form1">
+          <form id="form_consultar" class="row g-3 text-white d-flex flex-wrap align-items-center justify-content-center bg-dark opacity-75 rounded" novalidate>
+            <div class="col-md-4">
+              <label for="dniConsultar" class="form-label">D.N.I.</label>
+              <input type="number" class="form-control" id="dniConsultar" required>
+              <div class="invalid-feedback">Ingrese un valor v&aacute;lido (solo n&uacute;meros).</div>
+            </div>
+            <div class="col-md-4">
+              <label for="numeroOrden" class="form-label">N&uacute;mero de orden</label>
+              <input type="number" class="form-control" id="numeroOrden" required>
+              <div class="invalid-feedback">Ingrese un valor v&aacute;lido (solo n&uacute;meros).</div>
+            </div>
+            <div class="col-md-8">
+              <button class="btn btn-primary mb-2" id="btn_consultar2" type="button">
+                <i class="fa fa-paper-plane-o"></i>
+                <span id="span_consultar2" class="spinner-border spinner-border-sm visually-hidden" role="status" aria-hidden="true"></span>
+                Consultar
+              </button>
+            </div>
+          </form>
+        </div>
+
+        <div id="form2" style="display: none;">
+          <form id="form_solicitar_datos_personales" class="row g-3 mb-4 text-white d-flex flex-wrap align-items-center justify-content-center bg-dark opacity-75 rounded" novalidate>
+            <div class="col-md-4">
+              <label for="dniSolicitar" class="form-label">D.N.I.</label>
+              <input type="number" class="form-control" id="dniSolicitar" required>
+              <div class="invalid-feedback">Ingrese un valor v&aacute;lido (solo n&uacute;meros).</div>
+            </div>
+            <div class="col-md-4">
+              <label for="apellido" class="form-label">Apellido</label>
+              <input type="text" class="form-control" id="apellido" required>
+              <div class="invalid-feedback">Ingrese un valor v&aacute;lido.</div>
+            </div>
+            <div class="col-md-4">
+              <label for="nombre" class="form-label">Nombre</label>
+              <input type="text" class="form-control" id="nombre" required>
+              <div class="invalid-feedback">Ingrese un valor v&aacute;lido.</div>
+            </div>
+            <div class="col-md-4">
+              <label for="telefono" class="form-label">Tel&eacute;fono</label>
+              <input type="number" class="form-control" id="telefono" required>
+              <div class="invalid-feedback">Ingrese un valor v&aacute;lido (solo n&uacute;meros).</div>
+            </div>
+            <div class="col-md-4">
+              <label for="email" class="form-label">Correo electr&oacute;nico</label>
+              <input type="email" class="form-control" id="email" required>
+              <div class="invalid-feedback">Ingrese un valor v&aacute;lido.</div>
+            </div>
+            <div class="col-md-4">
+              <label for="direccion" class="form-label">Direcci&oacute;n</label>
+              <input type="text" class="form-control" id="direccion" required>
+              <div class="invalid-feedback">Ingrese un valor v&aacute;lido.</div>
+            </div>
+            <div class="col-md-4">
+              <label for="localidad" class="form-label">Localidad</label>
+              <input type="text" class="form-control" id="localidad" required>
+              <div class="invalid-feedback">Ingrese un valor v&aacute;lido.</div>
+            </div>
+            <div class="col-md-4">
+              <label for="codigoPostal" class="form-label">C&oacute;digo postal</label>
+              <input type="number" class="form-control" id="codigoPostal" required>
+              <div class="invalid-feedback">Ingrese un valor v&aacute;lido (solo n&uacute;meros).</div>
+            </div>
+            <div class="col-md-12">
+              <button class="btn btn-success mb-2" id="btn_siguiente" type="button">
+                <i class="fa fa-angle-double-right"></i> 
+                <span id="span_siguiente" class="spinner-border spinner-border-sm visually-hidden" role="status" aria-hidden="true"></span>
+                Siguiente
+              </button>
+            </div>
+          </form>
+        </div>
+        
+        <div id="divFormularioChangePassword" style="display: none;"></div>
+        <div id="form3" style="display: none;">
+          <form id="form_solicitar_datos_equipo" class="row g-3 text-white d-flex flex-wrap align-items-center justify-content-center bg-dark opacity-75 rounded" novalidate>
+            <div class="col-md-6">
+              <label for="marca" class="form-label">Marca</label>
+              <select class="form-select text-capitalize" id="selectMarca" required>
+                <option value="">Seleccionar marca...</option>
+              </select>
+              <div class="invalid-feedback">Seleccione una opci&oacute;n.</div>
+            </div>
+            <div class="col-md-6">
+              <label for="modelo" class="form-label">Modelo</label>
+              <select class="form-select text-capitalize" id="selectModelo" required>
+                <option value="">Seleccionar modelo...</option>
+              </select>
+              <div class="invalid-feedback">Seleccione una opci&oacute;n.</div>
+            </div>
+            <div class="col-md-6">
+              <label for="falla" class="form-label">Falla</label>
+              <input type="text" class="form-control" id="falla" required>
+              <div class="invalid-feedback">Ingrese un valor v&aacute;lido.</div>
+            </div>
+            <div class="col-md-6">
+              <label for="fotoTicket" class="form-label">Foto del ticket</label>
+              <input type="file" class="form-control" id="fotoTicket" accept="image/*" required>
+              <div class="invalid-feedback">Seleccione un archivo (solo fotos).</div>
+            </div>
+            <div class="col-md-6">
+              <label for="fotoEquipo" class="form-label">Foto del equipo</label>
+              <input type="file" class="form-control" id="fotoEquipo" accept="image/*" required>
+              <div class="invalid-feedback">Seleccione un archivo (solo fotos).</div>
+            </div>
+            <div class="col-md-12">
+              <button class="btn btn-danger mb-2" id="btn_volver" type="button" title="Volver a datos personasle">
+                <i class="fa fa-angle-double-left"></i> Volver
+              </button>
+              <button class="btn btn-primary mb-2" id="btn_solicitar2" type="button">
+                <i class="fa fa-paper-plane-o"></i>
+                <span id="span_solicitar2" class="spinner-border spinner-border-sm visually-hidden" role="status" aria-hidden="true"></span>
+                Iniciar
+              </button>
+            </div>
+          </form>
+        </div>
+
+      </div>
+    </div>
+
+    <div id="info">
+      <div class="container mt-3">
+        <div class="p-4 p-md-3 mb-4 opacity-75 text-white rounded bg-dark">
+          <div class="col-md-6 px-0">
+            <h1 class="display-4 fst-italic text-danger">¡Aviso importante!</h1>
+            <p class="lead my-3">Al completar el formulario, se le asignara un "NUMERO DE ORDEN".</p>
+            <p class="lead my-3">Por favor, revisar su correo electronico.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="/javascripts/jquery.min.js"></script>
+    <script src="/javascripts/sweetalert2@11.js"></script>
+    <script src="/javascripts/ajax.js"></script>
+    <script src="/javascripts/comun.js"></script>
+    <script src="/javascripts/reclamo.js"></script>
+    <script src="/javascripts/bootstrap.bundle.min.js"></script>
+
+  </body>
+</html>

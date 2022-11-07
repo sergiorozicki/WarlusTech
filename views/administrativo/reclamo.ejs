@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reclamos</title>
+    
+    <link rel="stylesheet" type="text/css" href="/stylesheets/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="/stylesheets/DataTables/datatables.min.css"/>
+    <link rel="stylesheet" type="text/css" href="/stylesheets/dashboard.css">
+    <link rel="stylesheet" type="text/css" href="/stylesheets/comun.css">
+    <link rel="stylesheet" type="text/css" href="/stylesheets/icons/adminLTE-2.4.15/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="/stylesheets/icons/bootstrap-5.1/bootstrap-icons.css">
+    
+</head>
+<body>
+    <header class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow mb-3">
+        <div class="navbar-brand col-md-3 col-lg-2 me-0 px-3">Men&uacute;</div>
+        <button class="navbar-toggler position-absolute d-md-none collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <input class="form-control bg-dark w-100" type="text" aria-label="Search" disabled>
+        <div class="btn-group">
+          <button type="button" class="btn btn-secondary dropdown-toggle rounded-pill" data-bs-toggle="dropdown" data-bs-display="static" aria-expanded="false">
+            Opciones
+          </button>
+          <ul class="dropdown-menu dropdown-menu-lg-end">
+            <li><a class="dropdown-item" href="/logout"><i class="fa fa-power-off"></i> Cerrar sesi&oacute;n</a></li>
+            <li><button id="btn_cambiar_password" class="dropdown-item"><i class="fa fa-unlock-alt"></i> Cambiar contase&ntilde;a</button></li>
+          </ul>
+        </div>
+    </header>
+    
+    <div class="container-fluid">
+        <div class="row">
+          <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block sidebar collapse" style="background-color: rgb(230,230,230);">
+            <div class="position-sticky pt-3">
+              <ul class="nav flex-column">
+                <li class="nav-item">
+                  <a class="nav-link active" aria-current="page" href="./reclamo">
+                    <i class="fa fa-exclamation-triangle"></i>
+                    Reclamos
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="./administrativo">
+                    <i class="fa fa-users"></i>
+                    Administrativos
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="./tecnico">
+                    <i class="fa fa-user"></i>
+                    T&eacute;cnicos
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="./producto">
+                    <i class="fa fa-shopping-cart"></i>
+                    Productos
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="./repuesto">
+                    <i class="fa fa-cogs"></i>
+                    Repuestos
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="./planilla">
+                    <i class="fa fa-table"></i>
+                    Planillas
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </nav>
+                  
+          <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+
+            <nav>
+              <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                <button id="seccionEnEspera" class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true">Reclamos en espera</button>
+                <button id="seccionAceptado" class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">Reclamos aceptados</button>
+                <button id="seccionArchivado" class="nav-link" id="nav-contact-tab" data-bs-toggle="tab" data-bs-target="#nav-contact" type="button" role="tab" aria-controls="nav-contact" aria-selected="false">Reclamos archivados</button>
+              </div>
+            </nav>
+            <div class="tab-content" id="nav-tabContent">
+              <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+                <br>
+                <div class="d-grid gap-2 d-md-flex justify-content-md-between">
+                  <div>
+                    <div class="btn-group">
+                      <button id="btn_actualizar_reclamo_en_espera" class="btn btn-outline-dark me-md-2 rounded-pill" data-bs-toggle="tooltip" data-bs-placement="top" title="Actualizar" type="button">
+                        <span id="span_actualizar_reclamo_en_espera" class="spinner-border spinner-border-sm visually-hidden" role="status" aria-hidden="true"></span>
+                        <i class="fa fa-refresh"></i>
+                      </button>
+                    </div>
+                  </div>
+                  <div>
+                    <div class="btn-group">
+                      <button id="btn_aceptar_solicitud" class="btn btn-outline-primary me-md-2 rounded-pill" data-bs-toggle="tooltip" data-bs-placement="top" title="Aceptar solicitud" type="button">
+                        <span id="span_aceptar_solicitud" class="spinner-border spinner-border-sm visually-hidden" role="status" aria-hidden="true"></span>
+                        <i class="fa fa-check"></i>
+                        Aceptar
+                      </button>
+                      <button id="btn_eliminar_reclamo" class="btn btn-outline-primary me-md-2 rounded-pill" data-bs-toggle="tooltip" data-bs-placement="top" title="Eliminar solicitud" type="button">
+                        <span class="spinner-border spinner-border-sm visually-hidden" role="status" aria-hidden="true"></span>
+                        <i class="fa fa-trash"></i>
+                        Eliminar
+                      </button>
+                      <button id="btn_seguimiento_reclamo_en_espera" class="btn btn-outline-primary me-md-2 rounded-pill" data-bs-toggle="tooltip" data-bs-placement="top" title="Ver seguimiento" type="button">
+                        <span id="span_seguimiento_reclamo_en_espera" class="spinner-border spinner-border-sm visually-hidden" role="status" aria-hidden="true"></span>
+                        <i class="fa fa-calendar"></i>
+                        Seguimiento
+                      </button>
+                      <button id="btn_ver_fotos_reclamo_en_espera" class="btn btn-outline-primary me-md-2 rounded-pill" data-bs-toggle="tooltip" data-bs-placement="top" title="Ver ticket y equipo" type="button">
+                        <span id="span_ver_fotos_reclamo_en_espera" class="spinner-border spinner-border-sm visually-hidden" role="status" aria-hidden="true"></span>
+                        <i class="fa fa-file-image-o"></i>
+                        Ver fotos
+                      </button>
+                    </div>
+                  </div>
+              </div><br>
+                <div class="table-responsive">
+                  <table id="tbl_reclamo_en_espera" class="table table-hover table-sm table-bordered text-dark tbl_listado">
+                    <thead class="thead-light">
+                      <tr>
+                        <th scope="col">N&deg; orden</th>
+                        <th scope="col">Cliente</th>
+                        <th scope="col">D.N.I.</th>
+                        <th scope="col">Tel&eacute;fono</th>
+                        <th scope="col">Email</th>
+                        <th scope="col">Direcci&oacute;n</th>
+                        <th scope="col">Localidad</th>
+                        <th scope="col">C&oacute;digo postal</th>
+                        <th scope="col">Producto</th>
+                        <th scope="col">Modelo</th>
+                        <th scope="col">Falla</th>
+                        <th scope="col">T&eacute;cnico</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+
+              <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+
+                <br>
+                <div class="d-grid gap-2 d-md-flex justify-content-md-between">
+                  <div>
+                    <div class="btn-group">
+                      <button id="btn_actualizar_reclamo_aceptado" class="btn btn-outline-dark me-md-2 rounded-pill" data-bs-toggle="tooltip" data-bs-placement="top" title="Actualizar" type="button">
+                        <span id="span_actualizar_reclamo_aceptado" class="spinner-border spinner-border-sm visually-hidden" role="status" aria-hidden="true"></span>
+                        <i class="fa fa-refresh"></i>
+                      </button>
+                    </div>
+                  </div>
+                  <div>
+                    <div class="btn-group">
+                      <button id="btn_nuevo_reclamo" class="btn btn-outline-primary me-md-2 rounded-pill" data-bs-toggle="tooltip" data-bs-placement="top" title="Nuevo reclamo" type="button">
+                        <span class="spinner-border spinner-border-sm visually-hidden" role="status" aria-hidden="true"></span>
+                        <i class="fa fa-plus-circle"></i>
+                        Nuevo
+                      </button>
+                      <button id="btn_editar_reclamo" class="btn btn-outline-primary me-md-2 rounded-pill" data-bs-toggle="tooltip" data-bs-placement="top" title="Editar" type="button">
+                        <span class="spinner-border spinner-border-sm visually-hidden" role="status" aria-hidden="true"></span>
+                        <i class="fa fa-pencil"></i>
+                        Editar
+                      </button>
+                      <button id="btn_archivar_reclamo" class="btn btn-outline-primary me-md-2 rounded-pill" data-bs-toggle="tooltip" data-bs-placement="top" title="Archivar" type="button">
+                          <span class="spinner-border spinner-border-sm visually-hidden" role="status" aria-hidden="true"></span>
+                          <i class="fa fa-archive"></i>
+                          Archivar
+                      </button>
+                      <button id="btn_asignar_tecnico" class="btn btn-outline-primary me-md-2 rounded-pill" data-bs-toggle="tooltip" data-bs-placement="top" title="Asignar t&eacute;cnico" type="button">
+                        <span class="spinner-border spinner-border-sm visually-hidden" role="status" aria-hidden="true"></span>
+                        <i class="fa fa-user-plus"></i>
+                        Asignar t&eacute;cnico
+                      </button>
+                      <button id="btn_seguimiento_reclamo_aceptado" class="btn btn-outline-primary me-md-2 rounded-pill" data-bs-toggle="tooltip" data-bs-placement="top" title="Ver seguimiento" type="button">
+                        <span id="span_seguimiento_reclamo_aceptado" class="spinner-border spinner-border-sm visually-hidden" role="status" aria-hidden="true"></span>
+                        <i class="fa fa-calendar"></i>
+                        Seguimiento
+                      </button>
+                      <button id="btn_ver_fotos_reclamo_aceptado" class="btn btn-outline-primary me-md-2 rounded-pill" data-bs-toggle="tooltip" data-bs-placement="top" title="Ver ticket y equipo" type="button">
+                        <span id="span_ver_fotos_reclamo_aceptado" class="spinner-border spinner-border-sm visually-hidden" role="status" aria-hidden="true"></span>
+                        <i class="fa fa-file-image-o"></i>
+                        Ver fotos
+                      </button>
+                    </div>
+                  </div>
+              </div><br>
+                <div class="table-responsive">
+                  <table id="tbl_reclamo_aceptado" class="table table-hover table-sm table-bordered text-dark tbl_listado">
+                    <thead class="thead-light">
+                      <tr>
+                        <th scope="col">N&deg; orden</th>
+                        <th scope="col">Cliente</th>
+                        <th scope="col">D.N.I.</th>
+                        <th scope="col">Tel&eacute;fono</th>
+                        <th scope="col">Email</th>
+                        <th scope="col">Direcci&oacute;n</th>
+                        <th scope="col">Localidad</th>
+                        <th scope="col">C&oacute;digo postal</th>
+                        <th scope="col">Producto</th>
+                        <th scope="col">Modelo</th>
+                        <th scope="col">Falla</th>
+                        <th scope="col">Estado</th>
+                        <th scope="col">T&eacute;cnico</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+
+              <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
+
+                <br>
+                <div class="d-grid gap-2 d-md-flex justify-content-md-between">
+                  <div>
+                    <div class="btn-group">
+                      <button id="btn_actualizar_reclamo_archivado" class="btn btn-outline-dark me-md-2 rounded-pill" data-bs-toggle="tooltip" data-bs-placement="top" title="Actualizar" type="button">
+                        <span id="span_actualizar_reclamo_archivado" class="spinner-border spinner-border-sm visually-hidden" role="status" aria-hidden="true"></span>
+                        <i class="fa fa-refresh"></i>
+                      </button>
+                    </div>
+                  </div>
+                  <div>
+                    <div class="btn-group">
+                      <button id="btn_desarchivar_reclamo" class="btn btn-outline-primary me-md-2 rounded-pill" data-bs-toggle="tooltip" data-bs-placement="top" title="Desarchivar" type="button">
+                        <span class="spinner-border spinner-border-sm visually-hidden" role="status" aria-hidden="true"></span>
+                        <i class="fa fa-folder-open"></i>
+                        Desarchivar
+                      </button>
+                      <button id="btn_seguimiento_reclamo_archivado" class="btn btn-outline-primary me-md-2 rounded-pill" data-bs-toggle="tooltip" data-bs-placement="top" title="Ver seguimiento" type="button">
+                        <span id="span_seguimiento_reclamo_archivado" class="spinner-border spinner-border-sm visually-hidden" role="status" aria-hidden="true"></span>
+                        <i class="fa fa-calendar"></i>
+                        Seguimiento
+                      </button>
+                      <button id="btn_ver_fotos_reclamo_archivado" class="btn btn-outline-primary me-md-2 rounded-pill" data-bs-toggle="tooltip" data-bs-placement="top" title="Ver ticket y equipo" type="button">
+                        <span id="span_ver_fotos_reclamo_archivado" class="spinner-border spinner-border-sm visually-hidden" role="status" aria-hidden="true"></span>
+                        <i class="fa fa-file-image-o"></i>
+                        Ver fotos
+                      </button>
+                    </div>
+                  </div>
+              </div><br>
+                <div class="table-responsive">
+                  <table id="tbl_reclamo_archivado" class="table table-hover table-sm table-bordered text-dark tbl_listado">
+                    <thead class="thead-light">
+                      <tr>
+                        <th scope="col">N&deg; orden</th>
+                        <th scope="col">Cliente</th>
+                        <th scope="col">D.N.I.</th>
+                        <th scope="col">Tel&eacute;fono</th>
+                        <th scope="col">Email</th>
+                        <th scope="col">Direcci&oacute;n</th>
+                        <th scope="col">Localidad</th>
+                        <th scope="col">C&oacute;digo postal</th>
+                        <th scope="col">Producto</th>
+                        <th scope="col">Modelo</th>
+                        <th scope="col">Falla</th>
+                        <th scope="col">T&eacute;cnico</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </main>
+        </div>
+      </div>
+      
+      <div class="modal fade" id="divFormularioReclamo" tabindex="-1" aria-labelledby="tituloFormulario" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-scrollable">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="tituloFormulario">Nuevo reclamo</h5>
+              <button type="button" class="btn-close btn-outline-danger rounded-pill" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body bg-red-300">
+              <form id="formularioReclamo" novalidate>
+                <div class="mb-3 row">
+                  <label for="dni" class="col-sm-2 col-form-label">D.N.I.</label>
+                  <div class="col-sm-10">
+                    <input type="number" class="form-control" id="dni" required>
+                    <div class="invalid-feedback">Ingrese un valor v&aacute;lido (solo n&uacute;meros).</div>
+                  </div>
+                </div><hr>
+                <div class="mb-3 row">
+                  <label for="apellido" class="col-sm-2 col-form-label">Apellido</label>
+                  <div class="col-sm-10">
+                    <input type="text" class="form-control" id="apellido" required>
+                    <div class="invalid-feedback">Ingrese un valor v&aacute;lido.</div>
+                  </div>
+                </div><hr>
+                <div class="mb-3 row">
+                  <label for="nombre" class="col-sm-2 col-form-label">Nombre</label>
+                  <div class="col-sm-10">
+                    <input type="text" class="form-control" id="nombre" required>
+                    <div class="invalid-feedback">Ingrese un valor v&aacute;lido.</div>
+                  </div>
+                </div><hr>
+                <div class="mb-3 row">
+                  <label for="telefono" class="col-sm-2 col-form-label">Tel&eacute;fono</label>
+                  <div class="col-sm-10">
+                    <input type="number" class="form-control" id="telefono" required>
+                    <div class="invalid-feedback">Ingrese un valor v&aacute;lido (solo n&uacute;meros).</div>
+                  </div>
+                </div><hr>
+                <div class="mb-3 row">
+                  <label for="email" class="col-sm-2 col-form-label">Correo electr&oacute;nico</label>
+                  <div class="col-sm-10">
+                    <input type="email" class="form-control" id="email" required>
+                    <div class="invalid-feedback">Ingrese un valor v&aacute;lido.</div>
+                  </div>
+                </div><hr>
+                <div class="mb-3 row">
+                  <label for="direccion" class="col-sm-2 col-form-label">Direcci&oacute;n</label>
+                  <div class="col-sm-10">
+                    <input type="text" class="form-control" id="direccion" required>
+                    <div class="invalid-feedback">Ingrese un valor v&aacute;lido.</div>
+                  </div>
+                </div><hr>
+                <div class="mb-3 row">
+                  <label for="localidad" class="col-sm-2 col-form-label">Localidad</label>
+                  <div class="col-sm-10">
+                    <input type="text" class="form-control" id="localidad" required>
+                    <div class="invalid-feedback">Ingrese un valor v&aacute;lido.</div>
+                  </div>
+                </div><hr>
+                <div class="mb-3 row">
+                  <label for="codigoPostal" class="col-sm-2 col-form-label">C&oacute;digo postal</label>
+                  <div class="col-sm-10">
+                    <input type="number" class="form-control" id="codigoPostal" required>
+                    <div class="invalid-feedback">Ingrese un valor v&aacute;lido (solo n&uacute;meros).</div>
+                  </div>
+                </div><hr>
+                <div class="mb-3 row">
+                  <label for="selectProductos" class="col-sm-2 col-form-label">Productos</label>
+                  <div class="col-sm-10">
+                    <select class="form-select" id="selectProductos" required>
+                      <option value="">Seleccionar producto...</option>
+                    </select>
+                    <div class="invalid-feedback">Seleccione una opci&oacute;n.</div>
+                  </div>
+                </div><hr>
+                <div class="mb-3 row">
+                  <label for="selectModelos" class="col-sm-2 col-form-label">Modelos</label>
+                  <div class="col-sm-10">
+                    <select class="form-select" id="selectModelos" required>
+                      <option value="">Seleccionar modelo...</option>
+                    </select>
+                    <div class="invalid-feedback">Seleccione una opci&oacute;n.</div>
+                  </div>
+                </div><hr>
+                <div class="mb-3 row">
+                  <label for="falla" class="col-sm-2 col-form-label">Falla</label>
+                  <div class="col-sm-10">
+                    <input type="text" class="form-control" id="falla" required>
+                    <div class="invalid-feedback">Ingrese un valor v&aacute;lido.</div>
+                  </div>
+                </div><hr>
+                <div class="mb-3 row">
+                  <label for="fotoTicket" class="col-sm-2 col-form-label">Foto del ticket</label>
+                  <div class="col-sm-10">
+                    <input type="file" class="form-control" id="fotoTicket" accept="image/*" required>
+                    <div class="invalid-feedback">Seleccione un archivo (solo fotos).</div>
+                  </div>
+                </div><hr>
+                <div class="mb-3 row">
+                  <label for="fotoEquipo" class="col-sm-2 col-form-label">Foto del equipo</label>
+                  <div class="col-sm-10">
+                    <input type="file" class="form-control" id="fotoEquipo" accept="image/*" required>
+                    <div class="invalid-feedback">Seleccione un archivo (solo fotos).</div>
+                  </div>
+                </div><hr>                
+                <div class="mb-3 row" id="selectEstadosHide">
+                  <label for="selectEstados" class="col-sm-2 col-form-label">Estados</label>
+                  <div class="col-sm-10">
+                    <select class="form-select" id="selectEstados" required>
+                      <option value="">Seleccionar estado...</option>
+                    </select>
+                    <div class="invalid-feedback">Seleccione una opci&oacute;n.</div>
+                  </div>
+                </div><hr id="hrEstados">
+                <div class="mb-3 row">
+                  <label for="selectTecnicos" class="col-sm-2 col-form-label">T&eacute;cnicos</label>
+                  <div class="col-sm-10">
+                    <select class="form-select" id="selectTecnicos">
+                      <option value="">Seleccionar t&eacute;cnico...</option>
+                    </select>
+                  </div>
+                </div>
+              </form>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-outline-danger rounded-pill" data-bs-dismiss="modal"><i class="fa fa-ban"></i> Cancelar</button>
+              <button type="button" id="btn_guardar" class="btn btn-outline-primary rounded-pill">
+                <i class="fa fa-paper-plane-o"></i>
+                <span id="span_guardar" class="spinner-border spinner-border-sm visually-hidden" role="status" aria-hidden="true"></span>
+                Guardar
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal fade" id="divFormularioTecnicos" tabindex="-1" aria-labelledby="tituloFormulario" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-scrollable">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="tituloFormularioTecnicos">Asignar t&eacute;cnico</h5>
+              <button type="button" class="btn-close btn-outline-danger rounded-pill" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <form id="formularioTecnicos" novalidate>
+                <div class="mb-3 row">
+                  <label for="selectTecnicos2" class="col-sm-2 col-form-label">T&eacute;cnicos</label>
+                  <div class="col-sm-10">
+                    <select class="form-select" id="selectTecnicos2" required>
+                      <option value="">Seleccionar tecnico...</option>
+                    </select>
+                    <div class="invalid-feedback">Seleccione una opci&oacute;n.</div>
+                  </div>
+                </div>
+              </form>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-outline-danger rounded-pill" data-bs-dismiss="modal"><i class="fa fa-ban"></i> Cancelar</button>
+              <button type="button" id="btn_guardar_asignar_tecnico" class="btn btn-outline-primary rounded-pill">
+                <i class="fa fa-paper-plane-o"></i>
+                <span id="span_guardar_asignar_tecnico" class="spinner-border spinner-border-sm visually-hidden" role="status" aria-hidden="true"></span>
+                Guardar
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal fade" id="divFormularioChangePassword" tabindex="-1" aria-labelledby="tituloFormulario" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-scrollable">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="tituloFormularioChangePassword">Cambiar contrase&ntilde;a</h5>
+              <button type="button" class="btn-close btn-outline-danger rounded-pill" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <form id="formularioChangePassword" novalidate>
+                <div class="mb-3 row">
+                  <label for="passwordActual" class="col-sm-2 col-form-label">Contrase&ntilde;a actual</label>
+                  <div class="col-sm-10">
+                    <input type="password" class="form-control" id="passwordActual" required>
+                    <div class="invalid-feedback">Ingrese un valor v&aacute;lido.</div>
+                  </div>
+                </div><hr>
+                <div class="mb-3 row">
+                  <label for="passwordNueva" class="col-sm-2 col-form-label">Nueva contase&ntilde;a</label>
+                  <div class="col-sm-10">
+                    <input type="password" class="form-control" id="passwordNueva" required>
+                    <div class="invalid-feedback">Ingrese un valor v&aacute;lido.</div>
+                  </div>
+                </div><hr>
+                <div class="mb-3 row">
+                  <label for="passwordConfirmar" class="col-sm-2 col-form-label">Confirmar contase&ntilde;a</label>
+                  <div class="col-sm-10">
+                    <input type="password" class="form-control" id="passwordConfirmar" required>
+                    <div class="invalid-feedback">Ingrese un valor v&aacute;lido.</div>
+                  </div>
+                </div><hr>
+                <ul id="listaModelo" class="list-group">
+                </ul>
+              </form>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-outline-danger rounded-pill" data-bs-dismiss="modal"><i class="fa fa-ban"></i> Cancelar</button>
+              <button type="button" id="btn_guardar_change_password" class="btn btn-outline-primary rounded-pill">
+                <i class="fa fa-paper-plane-o"></i>
+                <span id="span_guardar_change_password" class="spinner-border spinner-border-sm visually-hidden" role="status" aria-hidden="true"></span>
+                Guardar
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal fade" id="divPresentacionFotos" tabindex="-1" aria-labelledby="tituloFormulario" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-scrollable">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="tituloPresentacionFotos">Foto equipo - ticket</h5>
+              <button type="button" class="btn-close btn-outline-danger rounded-pill" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <div id="presentacionFotos" class="carousel slide" data-bs-ride="carousel">
+                <div class="carousel-indicators">
+                  <button type="button" data-bs-target="#presentacionFotos" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                  <button type="button" data-bs-target="#presentacionFotos" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                </div>
+                <div class="carousel-inner">
+                  <div class="carousel-item active">
+                    <img id="presentacionFotoTicket" src="/images/logoTecnico/default.png" class="d-block w-100" alt="...">
+                    <div class="carousel-caption d-none d-md-block">
+                      <h5 style="color:rgb(160, 160, 160)">Foto ticket</h5>
+                    </div>
+                  </div>
+                  <div class="carousel-item">
+                    <img id="presentacionFotoEquipo" src="/images/fondo.jpg" class="d-block w-100" alt="...">
+                    <div class="carousel-caption d-none d-md-block">
+                      <h5 style="color:rgb(160, 160, 160)">Foto equipo</h5>
+                    </div>
+                  </div>
+                </div>
+                <button class="carousel-control-prev" type="button" data-bs-target="#presentacionFotos" data-bs-slide="prev">
+                  <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                  <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#presentacionFotos" data-bs-slide="next">
+                  <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                  <span class="visually-hidden">Next</span>
+                </button>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-outline-danger rounded-pill" data-bs-dismiss="modal"><i class="fa fa-ban"></i> Cerrar</button>
+              <button type="button" id="btn_descargar_presentacion_foto_ticket" class="btn btn-outline-primary rounded-pill">
+                <i class="fa fa-download"></i>
+                <span id="span_descargar_presentacion_foto_ticket" class="spinner-border spinner-border-sm visually-hidden" role="status" aria-hidden="true"></span>
+                Descargar ticket
+              </button>
+              <button type="button" id="btn_descargar_presentacion_foto_equipo" class="btn btn-outline-primary rounded-pill">
+                <i class="fa fa-download"></i>
+                <span id="span_descargar_presentacion_foto_equipo" class="spinner-border spinner-border-sm visually-hidden" role="status" aria-hidden="true"></span>
+                Descargar equipo
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    <script type="text/javascript" src="/javascripts/jquery.min.js"></script>
+    <script type="text/javascript" src="/javascripts/datatables.min.js"></script>
+    <script type="text/javascript" src="/javascripts/bootstrap.bundle.min.js"></script>
+    <script type="text/javascript" src="/javascripts/sweetalert2@11.js"></script>
+    <script type="text/javascript" src="/javascripts/ajax.js"></script>
+    <script type="text/javascript" src="/javascripts/comun.js"></script>
+    <script type="text/javascript" src="/javascripts/administrativo/reclamo.js"></script>
+</body>
+</html>

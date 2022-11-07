@@ -1,0 +1,26 @@
+asociados:
+	nombre:	walmart	/ changomas / ribeiro / musimundo / fravega / mercado libre / grupo marquez / etc ...
+	cuit / cuil:
+	direccion:
+	codigo postal:
+	ciudad:
+	telefono:	________________________________
+
+
+Productos: 
+	desc: multireproductor / licuadora / ventilador / etc ...
+	marcas: strombreg / kanji / kodak / harrison / peabody / philco / kazz / crown mustang / kanjihome / gamma / goldtech / westinghouse / etc ...
+	modelo: kj-1110f
+	numero serie: kj-1110f / 7561984517 / etc ...
+	_______________________________________________________
+
+generar pdf de lista de reclamo...(numero de orden)
+
+inicio de session por codigo ( administrador, un tecnico o un trabajador en inventario?
+
+solicitud de repuestos... otro pdf + datos del tecnico, datos de los repuestos de los productos...
+
+administracion tiene que poder ver el estado del equipo... y los clientes tambien 
+
+tipos de estados: recibido / aceptado / en el taller / esperando repuesto / repuesto en camino / para retirar / entregado...
+agregar select de tabla estados en tabla de reclamos, y que ya guarde al seleccionar.

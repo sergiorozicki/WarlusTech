@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Planillas</title>
+    
+    <link rel="stylesheet" type="text/css" href="/stylesheets/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="/stylesheets/DataTables/datatables.min.css"/>
+    <link rel="stylesheet" type="text/css" href="/stylesheets/dashboard.css">
+    <link rel="stylesheet" type="text/css" href="/stylesheets/comun.css">
+    <link rel="stylesheet" type="text/css" href="/stylesheets/icons/adminLTE-2.4.15/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="/stylesheets/icons/bootstrap-5.1/bootstrap-icons.css">
+    
+</head>
+<body>
+    <header class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow mb-3">
+        <div class="navbar-brand col-md-3 col-lg-2 me-0 px-3">Men&uacute;</div>
+        <button class="navbar-toggler position-absolute d-md-none collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <input class="form-control bg-dark w-100" type="text" aria-label="Search" disabled>
+        <div class="btn-group">
+          <button type="button" class="btn btn-secondary dropdown-toggle rounded-pill" data-bs-toggle="dropdown" data-bs-display="static" aria-expanded="false">
+            Opciones
+          </button>
+          <ul class="dropdown-menu dropdown-menu-lg-end">
+            <li><a class="dropdown-item" href="/logout"><i class="fa fa-power-off"></i> Cerrar sesi&oacute;n</a></li>
+            <li><button id="btn_cambiar_password" class="dropdown-item"><i class="fa fa-unlock-alt"></i> Cambiar contase&ntilde;a</button></li>
+          </ul>
+        </div>
+    </header>
+    
+    <div class="container-fluid">
+        <div class="row">
+          <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block sidebar collapse" style="background-color: rgb(230,230,230);">
+            <div class="position-sticky pt-3">
+              <ul class="nav flex-column">
+                <li class="nav-item">
+                  <a class="nav-link" aria-current="page" href="./reclamo">
+                    <i class="fa fa-exclamation-triangle"></i>
+                    Reclamos
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="./administrativo">
+                    <i class="fa fa-users"></i>
+                    Administrativos
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="./tecnico">
+                    <i class="fa fa-user"></i>
+                    T&eacute;cnicos
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="./producto">
+                    <i class="fa fa-shopping-cart"></i>
+                    Productos
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="./repuesto">
+                    <i class="fa fa-cogs"></i>
+                    Repuestos
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link active" href="./planilla">
+                    <i class="fa fa-table"></i>
+                    Planillas
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </nav>
+                  
+          <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+
+            <nav>
+              <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                <button id="seccionDesarchivado" class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true">Planillas pendientes</button>
+                <button id="seccionArchivado" class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">Planillas archivadas</button>
+              </div>
+            </nav>
+            <div class="tab-content" id="nav-tabContent">
+              <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+
+                <br>
+                <div class="d-grid gap-2 d-md-flex justify-content-md-between">
+                  <div>
+                    <div class="btn-group">
+                      <button id="btn_actualizar" class="btn btn-outline-dark me-md-2 rounded-pill" data-bs-toggle="tooltip" data-bs-placement="top" title="Actualizar" type="button">
+                        <span id="span_actualizar" class="spinner-border spinner-border-sm visually-hidden" role="status" aria-hidden="true"></span>
+                        <i class="fa fa-refresh"></i>
+                      </button>
+                    </div>
+                  </div>
+                  <div>
+                    <div class="btn-group">
+                      <button id="btn_descargar_planilla_pendiente" class="btn btn-outline-primary me-md-2 rounded-pill" data-bs-toggle="tooltip" data-bs-placement="top" title="Descargar planilla pendiente" type="button">
+                        <span class="spinner-border spinner-border-sm visually-hidden" role="status" aria-hidden="true"></span>
+                        <i class="fa fa-download"></i>
+                        Descargar
+                    </button>
+                    </div>
+                  </div>
+              </div><br>
+                <div class="table-responsive">
+                  <table id="tbl_planilla_pendiente" class="table table-hover table-sm table-bordered text-dark">
+                    <thead class="thead-light">
+                      <tr>
+                        <th scope="col">T&eacute;cnico</th>
+                        <th scope="col">Fecha publicada</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+
+              <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+
+                <br>
+                <div class="d-grid gap-2 d-md-flex justify-content-md-between">
+                  <div>
+                    <div class="btn-group">
+                      <button id="btn_actualizar_archivado" class="btn btn-outline-dark me-md-2 rounded-pill" data-bs-toggle="tooltip" data-bs-placement="top" title="Actualizar" type="button">
+                        <span id="span_actualizar_archivado" class="spinner-border spinner-border-sm visually-hidden" role="status" aria-hidden="true"></span>
+                        <i class="fa fa-refresh"></i>
+                      </button>
+                    </div>
+                  </div>
+                  <div>
+                    <div class="btn-group">
+                      <button id="btn_descargar_planilla_archivada" class="btn btn-outline-primary me-md-2 rounded-pill" data-bs-toggle="tooltip" data-bs-placement="top" title="Descargar planilla archivada" type="button">
+                        <span class="spinner-border spinner-border-sm visually-hidden" role="status" aria-hidden="true"></span>
+                        <i class="fa fa-download"></i>
+                        Descargar
+                    </button>
+                    <button id="btn_desarchivar_planilla" class="btn btn-outline-primary me-md-2 rounded-pill" data-bs-toggle="tooltip" data-bs-placement="top" title="Desarchivar planilla" type="button">
+                        <span class="spinner-border spinner-border-sm visually-hidden" role="status" aria-hidden="true"></span>
+                        <i class="fa fa-folder-open"></i>
+                        Desarchivar
+                    </button>
+                    </div>
+                  </div>
+              </div><br>
+                <div class="table-responsive">
+                  <table id="tbl_planilla_archivada" class="table table-hover table-sm table-bordered text-dark">
+                    <thead class="thead-light">
+                      <tr>
+                        <th scope="col">T&eacute;cnico</th>
+                        <th scope="col">Fecha publicada</th>
+                        <th scope="col">Fecha archivada</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+
+          </main>
+        </div>
+      </div>
+
+      <div class="modal fade" id="divFormularioChangePassword" tabindex="-1" aria-labelledby="tituloFormulario" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-scrollable">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="tituloFormularioChangePassword">Cambiar contrase&ntilde;a</h5>
+              <button type="button" class="btn-close btn-outline-danger rounded-pill" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <form id="formularioChangePassword" novalidate>
+                <div class="mb-3 row">
+                  <label for="passwordActual" class="col-sm-2 col-form-label">Contrase&ntilde;a actual</label>
+                  <div class="col-sm-10">
+                    <input type="password" class="form-control" id="passwordActual" required>
+                    <div class="invalid-feedback">Ingrese un valor v&aacute;lido.</div>
+                  </div>
+                </div><hr>
+                <div class="mb-3 row">
+                  <label for="passwordNueva" class="col-sm-2 col-form-label">Nueva contase&ntilde;a</label>
+                  <div class="col-sm-10">
+                    <input type="password" class="form-control" id="passwordNueva" required>
+                    <div class="invalid-feedback">Ingrese un valor v&aacute;lido.</div>
+                  </div>
+                </div><hr>
+                <div class="mb-3 row">
+                  <label for="passwordConfirmar" class="col-sm-2 col-form-label">Confirmar contase&ntilde;a</label>
+                  <div class="col-sm-10">
+                    <input type="password" class="form-control" id="passwordConfirmar" required>
+                    <div class="invalid-feedback">Ingrese un valor v&aacute;lido.</div>
+                  </div>
+                </div><hr>
+                <ul id="listaModelo" class="list-group">
+                </ul>
+              </form>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-outline-danger rounded-pill" data-bs-dismiss="modal"><i class="fa fa-ban"></i> Cancelar</button>
+              <button type="button" id="btn_guardar_change_password" class="btn btn-outline-primary rounded-pill">
+                <i class="fa fa-paper-plane-o"></i>
+                <span id="span_guardar_change_password" class="spinner-border spinner-border-sm visually-hidden" role="status" aria-hidden="true"></span>
+                Guardar
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    <script type="text/javascript" src="/javascripts/jquery.min.js"></script>
+    <script type="text/javascript" src="/javascripts/datatables.min.js"></script>
+    <script type="text/javascript" src="/javascripts/bootstrap.bundle.min.js"></script>
+    <script type="text/javascript" src="/javascripts/sweetalert2@11.js"></script>
+    <script type="text/javascript" src="/javascripts/errors.js"></script>
+    <script type="text/javascript" src="/javascripts/ajax.js"></script>
+    <script type="text/javascript" src="/javascripts/comun.js"></script>
+    <script type="text/javascript" src="/javascripts/administrativo/planilla.js"></script>
+</body>
+</html>

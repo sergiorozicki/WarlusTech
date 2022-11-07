@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="es">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Iniciar sesión</title>
+        <link rel="stylesheet" type="text/css" href="/stylesheets/icons/adminLTE-2.4.15/font-awesome.min.css">
+        <link href="/stylesheets/login.css" rel="stylesheet">
+    </head>
+    <body>
+      <div class="titulo">
+        <h1>Warlus Technic</h1>
+      </div>
+      <div id="login-button">
+        <img style="z-index: 2;" src="images/login-w-icon.png">
+      </div>
+      <div id="container">
+        <h1>Inicio de sesi&oacute;n</h1>
+        <span class="close-btn">
+          <img src="images/circle_close_delete_-128.webp"></img>
+        </span>
+      
+        <form class="form_login">
+          <img class="loading" style="position: absolute; z-index: 0; margin-top: -100px; display: none;" src="images/loading.webp">
+          <input type="text" id="user" name="user" placeholder="Usuario">
+          <input type="password" id="password" name="password" placeholder="Contrase&ntilde;a">
+          <button type="button" id="btn_login">Iniciar sesi&oacute;n</button>
+          <div id="remember-container">
+            <span id="forgotten">&iquest;Olvid&oacute; la contrase&ntilde;a?</span>
+          </div>
+        </form>
+      </div>
+      
+      <div id="forgotten-container">
+        <h1>Recuperar contrase&ntilde;a</h1>
+        <span class="close-btn">
+          <img src="images/circle_close_delete_-128.webp"></img>
+        </span>
+
+        <form>
+          <img class="loading" style="position: absolute; z-index: 0; margin-top: -100px; display: none;" src="images/loading.webp">
+          <input type="email" id="email" placeholder="Correo electr&oacute;nico">
+          <button type="button" id="btn_recuperar">Recuperar</button>
+        </form>
+      </div>
+      <script type="text/javascript" src="/javascripts/jquery.min.js"></script>
+      <script type="text/javascript" src="/javascripts/sweetalert2@11.js"></script>
+      <script type="text/javascript" src="/javascripts/ajax.js"></script>
+      <script type="text/javascript" src="/javascripts/comun.js"></script>
+      <script type="text/javascript" src="/javascripts/login.js"></script>
+      
+      <style>
+        .form-swal {
+          opacity: .8;
+          color: rgb(0, 0, 0);
+        }
+      </style>
+
+    </body>
+</html>
